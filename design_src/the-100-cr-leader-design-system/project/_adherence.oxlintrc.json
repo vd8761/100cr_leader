@@ -1,0 +1,406 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/core/**",
+              "components/foundation/**",
+              "components/media/**",
+              "components/navigation/**",
+              "components/typography/**",
+              "ui_kits/website/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color - use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value - use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Bebas Neue|Onest))/i]",
+        "message": "Font not provided by the design system. Available: Bebas Neue, Onest."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='AudioPlayer'] > JSXAttribute > JSXIdentifier[name!=/^(?:seed|current|total|progress|defaultPlaying|style|key|ref|className|style|children)$/]",
+        "message": "<AudioPlayer> doesn't accept that prop. Declared props: seed, current, total, progress, defaultPlaying, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|tone|style|key|ref|className|style|children)$/]",
+        "message": "<Badge> doesn't accept that prop. Declared props: children, tone, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:forest|sand|outline|gold)$/]",
+        "message": "<Badge> tone must be one of 'forest' | 'sand' | 'outline' | 'gold'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|variant|href|onClick|icon|iconRight|size|style|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: children, variant, href, onClick, icon, iconRight, size, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:solid|onDark|outline|ghost)$/]",
+        "message": "<Button> variant must be one of 'solid' | 'onDark' | 'outline' | 'ghost'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<Button> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='DisplayHeading'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|size|color|align|as|style|key|ref|className|style|children)$/]",
+        "message": "<DisplayHeading> doesn't accept that prop. Declared props: children, size, color, align, as, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='DisplayHeading'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:hero|stacked|md)$/]",
+        "message": "<DisplayHeading> size must be one of 'hero' | 'stacked' | 'md'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='DisplayHeading'] > JSXAttribute[name.name='align'] > Literal[value!=/^(?:left|center|right)$/]",
+        "message": "<DisplayHeading> align must be one of 'left' | 'center' | 'right'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='EpisodeCard'] > JSXAttribute > JSXIdentifier[name!=/^(?:episode|title|teaser|duration|date|current|total|progress|defaultPlaying|seed|style|key|ref|className|style|children)$/]",
+        "message": "<EpisodeCard> doesn't accept that prop. Declared props: episode, title, teaser, duration, date, current, total, progress, defaultPlaying, seed, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Icon'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|size|color|key|ref|className|style|children)$/]",
+        "message": "<Icon> doesn't accept that prop. Declared props: name, size, color."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Marquee'] > JSXAttribute > JSXIdentifier[name!=/^(?:text|icon|tone|speed|style|key|ref|className|style|children)$/]",
+        "message": "<Marquee> doesn't accept that prop. Declared props: text, icon, tone, speed, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Marquee'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:dark|light)$/]",
+        "message": "<Marquee> tone must be one of 'dark' | 'light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NavBar'] > JSXAttribute > JSXIdentifier[name!=/^(?:items|active|tone|onSelect|style|key|ref|className|style|children)$/]",
+        "message": "<NavBar> doesn't accept that prop. Declared props: items, active, tone, onSelect, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NavBar'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:dark|light)$/]",
+        "message": "<NavBar> tone must be one of 'dark' | 'light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PlatformIcon'] > JSXAttribute > JSXIdentifier[name!=/^(?:platform|size|ring|style|key|ref|className|style|children)$/]",
+        "message": "<PlatformIcon> doesn't accept that prop. Declared props: platform, size, ring, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PlatformPill'] > JSXAttribute > JSXIdentifier[name!=/^(?:platform|tone|action|style|key|ref|className|style|children)$/]",
+        "message": "<PlatformPill> doesn't accept that prop. Declared props: platform, tone, action, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PlatformPill'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:dark|light)$/]",
+        "message": "<PlatformPill> tone must be one of 'dark' | 'light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SectionLabel'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|icon|tone|rule|style|key|ref|className|style|children)$/]",
+        "message": "<SectionLabel> doesn't accept that prop. Declared props: children, icon, tone, rule, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SectionLabel'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:light|dark)$/]",
+        "message": "<SectionLabel> tone must be one of 'light' | 'dark'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SocialIcon'] > JSXAttribute > JSXIdentifier[name!=/^(?:platform|href|size|tone|style|key|ref|className|style|children)$/]",
+        "message": "<SocialIcon> doesn't accept that prop. Declared props: platform, href, size, tone, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SocialIcon'] > JSXAttribute[name.name='platform'] > Literal[value!=/^(?:linkedin|facebook|x|instagram|whatsapp)$/]",
+        "message": "<SocialIcon> platform must be one of 'linkedin' | 'facebook' | 'x' | 'instagram' | 'whatsapp'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SocialIcon'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:dark|light)$/]",
+        "message": "<SocialIcon> tone must be one of 'dark' | 'light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Waveform'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|progress|seed|playing|count|color|playedColor|height|style|key|ref|className|style|children)$/]",
+        "message": "<Waveform> doesn't accept that prop. Declared props: variant, progress, seed, playing, count, color, playedColor, height, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Waveform'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:hero|track)$/]",
+        "message": "<Waveform> variant must be one of 'hero' | 'track'."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "AudioPlayer": {
+        "replaces": []
+      },
+      "Badge": {
+        "replaces": []
+      },
+      "Button": {
+        "replaces": []
+      },
+      "DisplayHeading": {
+        "replaces": []
+      },
+      "EpisodeCard": {
+        "replaces": []
+      },
+      "Icon": {
+        "replaces": []
+      },
+      "Marquee": {
+        "replaces": []
+      },
+      "NavBar": {
+        "replaces": []
+      },
+      "PlatformIcon": {
+        "replaces": []
+      },
+      "PlatformPill": {
+        "replaces": []
+      },
+      "SectionLabel": {
+        "replaces": []
+      },
+      "SocialIcon": {
+        "replaces": []
+      },
+      "Waveform": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--black",
+      "--border-hairline",
+      "--border-hairline-dark",
+      "--border-subtle",
+      "--content-max",
+      "--cream",
+      "--dur",
+      "--dur-fast",
+      "--dur-slow",
+      "--ease",
+      "--facebook",
+      "--font-display",
+      "--font-label",
+      "--font-sans",
+      "--forest",
+      "--forest-024",
+      "--forest-300",
+      "--forest-700",
+      "--forest-800",
+      "--forest-900",
+      "--fs-body",
+      "--fs-body-lg",
+      "--fs-body-sm",
+      "--fs-caption",
+      "--fs-display-lg",
+      "--fs-display-md",
+      "--fs-display-xl",
+      "--fs-h1",
+      "--fs-h2",
+      "--fs-h3",
+      "--fs-h4",
+      "--fs-h5",
+      "--fs-micro",
+      "--fw-bold",
+      "--fw-extralight",
+      "--fw-light",
+      "--fw-medium",
+      "--fw-regular",
+      "--fw-semibold",
+      "--fw-thin",
+      "--gold",
+      "--google-blue",
+      "--google-green",
+      "--google-red",
+      "--google-yellow",
+      "--instagram",
+      "--jiosaavn",
+      "--lh-body",
+      "--lh-display",
+      "--lh-snug",
+      "--lh-tight",
+      "--linkedin",
+      "--ls-display",
+      "--ls-label",
+      "--ls-normal",
+      "--ls-tight",
+      "--navy",
+      "--page-gutter",
+      "--paper",
+      "--paper-2",
+      "--paper-3",
+      "--radius",
+      "--radius-lg",
+      "--radius-pill",
+      "--radius-sm",
+      "--radius-xl",
+      "--rule-dark",
+      "--rule-light",
+      "--sand",
+      "--sand-soft",
+      "--shadow",
+      "--shadow-lg",
+      "--shadow-photo",
+      "--shadow-sm",
+      "--space-1",
+      "--space-10",
+      "--space-12",
+      "--space-16",
+      "--space-2",
+      "--space-20",
+      "--space-24",
+      "--space-3",
+      "--space-32",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-8",
+      "--spotify",
+      "--surface-card",
+      "--surface-dark",
+      "--surface-light",
+      "--text-on-dark",
+      "--text-on-dark-muted",
+      "--text-on-light",
+      "--text-on-light-muted",
+      "--whatsapp",
+      "--white",
+      "--x",
+      "--youtube"
+    ],
+    "tokenKinds": {
+      "--forest-900": "color",
+      "--forest-800": "color",
+      "--forest": "color",
+      "--forest-700": "color",
+      "--forest-300": "color",
+      "--forest-024": "color",
+      "--navy": "color",
+      "--paper": "color",
+      "--paper-2": "color",
+      "--paper-3": "color",
+      "--cream": "color",
+      "--white": "color",
+      "--black": "color",
+      "--sand": "color",
+      "--sand-soft": "color",
+      "--rule-dark": "color",
+      "--rule-light": "color",
+      "--gold": "color",
+      "--text-on-dark": "font",
+      "--text-on-dark-muted": "font",
+      "--text-on-light": "font",
+      "--text-on-light-muted": "font",
+      "--spotify": "color",
+      "--youtube": "color",
+      "--jiosaavn": "color",
+      "--whatsapp": "color",
+      "--facebook": "color",
+      "--linkedin": "color",
+      "--x": "color",
+      "--instagram": "color",
+      "--google-blue": "color",
+      "--google-red": "color",
+      "--google-yellow": "color",
+      "--google-green": "color",
+      "--surface-dark": "color",
+      "--surface-light": "color",
+      "--surface-card": "color",
+      "--border-subtle": "color",
+      "--font-display": "font",
+      "--font-sans": "font",
+      "--font-label": "font",
+      "--fs-display-xl": "spacing",
+      "--fs-display-lg": "spacing",
+      "--fs-display-md": "spacing",
+      "--fs-h1": "spacing",
+      "--fs-h2": "spacing",
+      "--fs-h3": "spacing",
+      "--fs-h4": "spacing",
+      "--fs-h5": "spacing",
+      "--fs-body-lg": "spacing",
+      "--fs-body": "spacing",
+      "--fs-body-sm": "spacing",
+      "--fs-caption": "spacing",
+      "--fs-micro": "spacing",
+      "--fw-thin": "other",
+      "--fw-extralight": "other",
+      "--fw-light": "other",
+      "--fw-regular": "other",
+      "--fw-medium": "other",
+      "--fw-semibold": "other",
+      "--fw-bold": "other",
+      "--lh-display": "other",
+      "--lh-tight": "other",
+      "--lh-snug": "other",
+      "--lh-body": "other",
+      "--ls-display": "other",
+      "--ls-tight": "other",
+      "--ls-normal": "other",
+      "--ls-label": "other",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--space-8": "spacing",
+      "--space-10": "spacing",
+      "--space-12": "spacing",
+      "--space-16": "spacing",
+      "--space-20": "spacing",
+      "--space-24": "spacing",
+      "--space-32": "spacing",
+      "--page-gutter": "spacing",
+      "--content-max": "spacing",
+      "--radius-sm": "radius",
+      "--radius": "radius",
+      "--radius-lg": "radius",
+      "--radius-xl": "radius",
+      "--radius-pill": "radius",
+      "--border-hairline": "color",
+      "--border-hairline-dark": "color",
+      "--shadow-sm": "shadow",
+      "--shadow": "shadow",
+      "--shadow-lg": "shadow",
+      "--shadow-photo": "shadow",
+      "--ease": "other",
+      "--dur-fast": "other",
+      "--dur": "other",
+      "--dur-slow": "other"
+    },
+    "fontFamilies": [
+      "Bebas Neue",
+      "Onest"
+    ]
+  }
+}

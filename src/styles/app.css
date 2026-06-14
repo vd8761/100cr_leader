@@ -1,0 +1,649 @@
+/* ============================================================
+   APP LAYOUT - section grids + responsive behaviour
+   The design-system primitives keep their own inline styling;
+   this file owns the page composition and all breakpoints.
+   ============================================================ */
+
+/* ============================================================
+   NAVBAR (fixed, floating centred pill)
+   ============================================================ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4) var(--page-gutter);
+  transition: padding var(--dur) var(--ease);
+}
+
+.nav__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  padding: 12px 28px;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  background: transparent;
+  backdrop-filter: blur(0);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease), backdrop-filter var(--dur) var(--ease);
+}
+
+.nav.is-scrolled .nav__bar {
+  background: rgba(29, 39, 28, 0.72);
+  border-color: var(--rule-dark);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(14px);
+}
+
+.nav__brand {
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: var(--ls-display);
+  color: var(--sand);
+  text-decoration: none;
+  margin-right: var(--space-2);
+  display: none;
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.nav__link {
+  position: relative;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body-sm);
+  font-weight: var(--fw-light);
+  letter-spacing: var(--ls-tight);
+  color: var(--text-on-dark-muted);
+  text-decoration: none;
+  padding: 4px 2px;
+  white-space: nowrap;
+  transition: color var(--dur) var(--ease);
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: var(--sand);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform var(--dur) var(--ease);
+}
+
+.nav__link:hover,
+.nav__link.is-active {
+  color: var(--text-on-dark);
+}
+
+.nav__link:hover::after,
+.nav__link.is-active::after {
+  transform: scaleX(1);
+}
+
+/* hamburger */
+.nav__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--rule-dark);
+  border-radius: var(--radius-pill);
+  background: rgba(29, 39, 28, 0.6);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+
+.nav__toggle span {
+  display: block;
+  width: 18px;
+  height: 1.6px;
+  margin: 0 auto;
+  background: var(--sand);
+  transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+
+.nav__toggle.is-open span:nth-child(1) {
+  transform: translateY(6.6px) rotate(45deg);
+}
+.nav__toggle.is-open span:nth-child(2) {
+  opacity: 0;
+}
+.nav__toggle.is-open span:nth-child(3) {
+  transform: translateY(-6.6px) rotate(-45deg);
+}
+
+/* mobile overlay menu */
+.nav__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  background: var(--forest-900);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur) var(--ease), visibility var(--dur) var(--ease);
+}
+
+.nav__overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav__overlay a {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 13vw, 72px);
+  letter-spacing: var(--ls-display);
+  color: var(--sand);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1024px) {
+  .nav {
+    justify-content: space-between;
+    padding: var(--space-3) var(--page-gutter);
+  }
+  .nav__bar {
+    display: none;
+  }
+  .nav__brand {
+    display: block;
+    font-size: 22px;
+    margin: 0;
+  }
+  .nav__toggle {
+    display: flex;
+  }
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  background: var(--forest);
+  position: relative;
+  isolation: isolate;
+}
+
+.hero__top {
+  background: var(--forest);
+  padding-top: clamp(96px, 14vh, 160px);
+  padding-bottom: var(--space-2);
+}
+
+.hero__wordmark-wrap {
+  overflow: hidden;
+  padding: 0 var(--page-gutter) 8px;
+  text-align: center;
+}
+
+.hero__wordmark {
+  white-space: nowrap;
+}
+
+/* Floating host cut-out - cropped to the upper body (above the hip) and
+   scaled up. The wrapper owns the centering (so GSAP's parallax transforms
+   on the image don't fight it); the image box + object-fit cover does the
+   crop and sits at the paper band's edge, just above the platform bar. */
+.hero__portrait-wrap {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero__portrait {
+  display: block;
+  width: clamp(330px, 46vw, 600px);
+  height: clamp(300px, 43vh, 486px); /* shorter than width → object-fit crops below the hip */
+  object-fit: cover;
+  object-position: center top; /* keep head + torso, crop below the hip */
+  filter: drop-shadow(0 28px 70px rgba(0, 0, 0, 0.42));
+}
+
+@media (max-width: 1150px) {
+  .hero__portrait-wrap {
+    display: none; /* only show where there's room beside the right-aligned name */
+  }
+}
+
+@media (max-width: 820px) {
+  .hero__wordmark {
+    white-space: normal;
+    line-height: 0.9;
+  }
+}
+
+.hero__name-band {
+  position: relative;
+  background: var(--paper);
+  overflow: visible; /* lets the portrait's head rise above the band */
+}
+
+.hero__waveform {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--page-gutter);
+  opacity: 0.5;
+  pointer-events: none;
+  overflow: hidden; /* keep the waveform capsules clipped to the band */
+}
+
+.hero__name-inner {
+  position: relative;
+  z-index: 3; /* navy name stays above the floating portrait */
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-24) var(--page-gutter);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hero__name-box {
+  max-width: 620px;
+}
+
+.hero__platform-bar {
+  background: var(--forest-700);
+  border-top: 1px solid var(--rule-dark);
+}
+
+.hero__platform-inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-5) var(--page-gutter);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+}
+
+@media (max-width: 1150px) {
+  .hero__name-inner {
+    justify-content: flex-start; /* no portrait → name leads from the left */
+  }
+  .hero__platform-inner {
+    justify-content: flex-start;
+    gap: var(--space-8) var(--space-10);
+  }
+}
+
+@media (max-width: 680px) {
+  .hero__name-inner {
+    padding: var(--space-16) var(--page-gutter);
+  }
+  .hero__waveform {
+    opacity: 0.32;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero__platform-inner {
+    gap: var(--space-6) var(--space-8);
+  }
+}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about {
+  background: var(--forest);
+  position: relative;
+  overflow: hidden;
+}
+
+.about__grid {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--section-y) var(--page-gutter);
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: var(--space-24);
+  align-items: center;
+}
+
+.about__photo {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--paper);
+  box-shadow: var(--shadow-photo);
+  aspect-ratio: 1 / 1; /* matches the square promo key-art - shown in full */
+}
+
+.about__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.about__copy {
+  max-width: 760px;
+}
+
+@media (max-width: 980px) {
+  .about__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    max-width: 620px;
+  }
+  .about__photo {
+    max-width: 420px;
+  }
+}
+
+/* ============================================================
+   EPISODES
+   ============================================================ */
+.episodes {
+  background: var(--paper);
+}
+
+.episodes__inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--section-y) var(--page-gutter);
+}
+
+.episodes__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.episodes__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin-top: var(--space-12);
+}
+
+/* --- EpisodeCard --- */
+.episode-card {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+    background var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.episode-card:hover {
+  background: var(--paper-3);
+  border-color: var(--rule-light);
+  box-shadow: var(--shadow);
+}
+
+.episode-card__main {
+  min-width: 0; /* let the grid track shrink so the player + text reflow */
+  padding: var(--space-10) var(--space-12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.episode-card__rail {
+  min-width: 0;
+  border-left: 1px solid var(--rule-light);
+  padding: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+@media (max-width: 860px) {
+  .episode-card {
+    grid-template-columns: 1fr;
+  }
+  .episode-card__main {
+    padding: var(--space-8) var(--space-6);
+    gap: var(--space-5);
+  }
+  .episode-card__rail {
+    border-left: none;
+    border-top: 1px solid var(--rule-light);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-6);
+    flex-wrap: wrap;
+  }
+}
+
+/* ============================================================
+   CIRCLE
+   ============================================================ */
+.circle {
+  background: var(--forest-900);
+  position: relative;
+  overflow: hidden;
+}
+
+.circle__grid {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--section-y) var(--page-gutter);
+  display: grid;
+  grid-template-columns: 1fr 360px 1fr;
+  gap: var(--space-16);
+  align-items: center;
+}
+
+/* Short pedestal card; the face-cropped portrait rises out of the top,
+   hands cropped away at the bottom. The figure is a zoomed background so
+   we can crop the hands AND let the head pop above the card. */
+.circle__portrait {
+  position: relative;
+  align-self: center;
+  width: 100%;
+  max-width: 280px;
+  height: clamp(178px, 22vh, 214px); /* deliberately short card */
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  box-shadow: var(--shadow-photo);
+}
+
+.circle__portrait-figure {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(100% + clamp(46px, 6.5vh, 70px)); /* taller than card → head pops above */
+  background-image: url('/assets/author-seated.png');
+  background-repeat: no-repeat;
+  background-position: center -104px; /* lift past the photo's headroom so the head crests the top */
+  background-size: 168% auto;         /* zoom in on the face, crop the hands away */
+  border-radius: var(--radius-lg);
+}
+
+/* "THE 100 CR LEADER CIRCLE" - set in Nohemi (substituted with Onest),
+   large and editorial, instead of the condensed Bebas display face. */
+.circle__headline {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: clamp(38px, 5.4vw, 76px);
+  line-height: 1.04;
+  letter-spacing: var(--ls-tight);
+  text-transform: uppercase;
+  color: var(--paper);
+  margin: 0 0 var(--space-8);
+}
+
+.circle__connect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.circle__blurb {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body-sm);
+  font-weight: var(--fw-light);
+  color: var(--text-on-dark-muted);
+  line-height: var(--lh-body);
+  max-width: 340px;
+  border-top: 1px solid var(--rule-dark);
+  padding-top: var(--space-6);
+  margin: 0;
+}
+
+/* Below the 3-column width, stack into a single centred column. */
+@media (max-width: 1080px) {
+  .circle__grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: var(--space-12);
+  }
+  .circle__blurb {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  background: var(--forest-900);
+  border-top: 1px solid var(--rule-dark);
+}
+
+.footer__inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-12) var(--page-gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.footer__brand {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 44px);
+  letter-spacing: var(--ls-display);
+  color: var(--sand);
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1;
+}
+
+.footer__meta {
+  font-size: var(--fs-caption);
+  color: var(--text-on-dark-muted);
+  text-align: right;
+}
+
+.footer__links {
+  display: flex;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.footer__links a {
+  font-size: var(--fs-body-sm);
+  color: var(--text-on-dark-muted);
+  text-decoration: none;
+  transition: color var(--dur) var(--ease);
+}
+
+.footer__links a:hover {
+  color: var(--text-on-dark);
+}
+
+@media (max-width: 680px) {
+  .footer__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-8);
+  }
+  .footer__meta {
+    text-align: left;
+  }
+}
+
+/* ============================================================
+   SHARED - section eyebrow tag with mic
+   ============================================================ */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* ============================================================
+   BACKGROUND GHOST WORDMARKS (oversized, faint, parallax)
+   ============================================================ */
+.bg-ghost {
+  position: absolute;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--sand);
+  opacity: 0.04;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  line-height: 0.8;
+  z-index: 0;
+}
+
+.bg-ghost--about {
+  top: 4%;
+  right: -2%;
+  font-size: clamp(120px, 26vw, 460px);
+}
+
+.bg-ghost--circle {
+  bottom: -4%;
+  left: -2%;
+  font-size: clamp(120px, 24vw, 440px);
+  opacity: 0.05;
+}
+
+/* keep section content above the ghost layer */
+.about__grid,
+.circle__grid {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 680px) {
+  .bg-ghost {
+    display: none;
+  }
+}

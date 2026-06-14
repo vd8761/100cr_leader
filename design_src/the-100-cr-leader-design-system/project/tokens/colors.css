@@ -1,0 +1,63 @@
+/* ============================================================
+   COLORS - The 100 CR Leader
+   Extracted from the Figma source (100 Crore Website.fig).
+   Dominant: forest green #2C362B (1011×). Warm paper neutrals,
+   sand/olive display tone, and platform brand accents.
+   ============================================================ */
+
+:root {
+  /* ---- Forest greens (primary ink + dark surfaces) ---- */
+  --forest-900: #1D271C;   /* deepest - overlays, footers          */
+  --forest-800: #232E22;   /* dark section gradient stop           */
+  --forest:     #2C362B;   /* PRIMARY brand green - bg + ink       */
+  --forest-700: #3A463A;   /* hairlines / muted strokes on dark    */
+  --forest-300: rgba(44,54,43,0.30);  /* blurred platform bar      */
+  --forest-024: rgba(44,54,43,0.24);  /* soft green shadow         */
+
+  /* ---- Hero accent (the "with … name" headline) ---- */
+  --navy:       #12265C;   /* deep indigo - secondary headline ink */
+
+  /* ---- Warm paper neutrals (light surfaces) ---- */
+  --paper:      #F2F1E7;   /* primary light section background     */
+  --paper-2:    #EEEDE1;   /* card / inset surface                 */
+  --paper-3:    #E8E6D6;   /* hovered card                         */
+  --cream:      #FFFEF1;   /* brightest warm white                 */
+  --white:      #FFFFFF;
+  --black:      #000000;
+
+  /* ---- Sand / olive (display text on dark, dividers) ---- */
+  --sand:       #D6D3B2;   /* big Bebas headline on forest         */
+  --sand-soft:  rgba(214,211,178,0.55);
+  --rule-dark:  rgba(214,211,178,0.25); /* divider on forest       */
+  --rule-light: rgba(44,54,43,0.14);    /* divider on paper        */
+
+  /* ---- Gold accent ---- */
+  --gold:       #FBBC04;   /* highlight / active state             */
+
+  /* ---- Text roles ---- */
+  --text-on-dark:        #F2F1E7;
+  --text-on-dark-muted:  rgba(242,241,231,0.66);
+  --text-on-light:       #2C362B;
+  --text-on-light-muted: rgba(44,54,43,0.62);
+
+  /* ---- Platform brand colors (icons & pills) ---- */
+  --spotify:    #12C64B;
+  --youtube:    #FF0000;
+  --jiosaavn:   #1ECCB0;
+  --whatsapp:   #25D366;
+  --facebook:   #1877F2;
+  --linkedin:   #0A66C2;
+  --x:          #000000;
+  --instagram:  #E4405F;
+  /* Google Podcasts dot palette */
+  --google-blue:   #4285F4;
+  --google-red:    #EA4335;
+  --google-yellow: #FBBC04;
+  --google-green:  #34A853;
+
+  /* ---- Semantic surface aliases ---- */
+  --surface-dark:   var(--forest);
+  --surface-light:  var(--paper);
+  --surface-card:   var(--paper-2);
+  --border-subtle:  var(--rule-light);
+}

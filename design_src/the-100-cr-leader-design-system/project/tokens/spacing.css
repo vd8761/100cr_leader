@@ -1,0 +1,48 @@
+/* ============================================================
+   SPACING · RADII · SHADOWS - The 100 CR Leader
+   The site is built on an 1920px canvas with an 80px page gutter.
+   Generous air; soft, low shadows; gently rounded cards.
+   ============================================================ */
+
+:root {
+  /* ---- Spacing scale (4px base) ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;    /* page gutter & section rhythm */
+  --space-24: 96px;
+  --space-32: 128px;   /* section vertical padding */
+
+  --page-gutter: 80px;
+  --content-max: 1760px;  /* 1920 − 2×80 gutter */
+
+  /* ---- Radii ---- */
+  --radius-sm: 6px;
+  --radius:    12px;    /* default cards */
+  --radius-lg: 16px;    /* episode rows, photo frames */
+  --radius-xl: 24px;
+  --radius-pill: 999px; /* platform pills, EP badge */
+
+  /* ---- Borders ---- */
+  --border-hairline: 1px solid var(--rule-light);
+  --border-hairline-dark: 1px solid var(--rule-dark);
+
+  /* ---- Shadows (soft, low-contrast) ---- */
+  --shadow-sm:  0 2px 8px rgba(44,54,43,0.06);
+  --shadow:     0 8px 28px rgba(44,54,43,0.10);
+  --shadow-lg:  0 24px 60px rgba(0,0,0,0.18);
+  --shadow-photo: 0 30px 80px rgba(0,0,0,0.25);  /* floating headshot */
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1); /* @kind other */
+  --dur-fast: 0.18s; /* @kind other */
+  --dur:      0.28s; /* @kind other */
+  --dur-slow: 0.5s;  /* @kind other */
+}

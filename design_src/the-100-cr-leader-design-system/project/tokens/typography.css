@@ -1,0 +1,51 @@
+/* ============================================================
+   TYPOGRAPHY - The 100 CR Leader
+   Bebas Neue (display) · Onest≈Nohemi (UI/body) · Onest≈Gilroy (labels)
+   ============================================================ */
+
+:root {
+  /* ---- Families ---- */
+  --font-display: 'Bebas Neue', 'Onest', sans-serif;       /* giant condensed headline */
+  --font-sans:    'Onest', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; /* ≈ Nohemi */
+  --font-label:   'Onest', -apple-system, sans-serif;       /* ≈ Gilroy, small UI */
+
+  /* ---- Display scale (Bebas Neue) - used on dark hero ---- */
+  --fs-display-xl: 168px;  /* "THE 100 CR LEADER" full-bleed */
+  --fs-display-lg: 96px;   /* "THE / 100 CR / LEADER / CIRCLE" stacked */
+  --fs-display-md: 60px;
+
+  /* ---- Heading scale (Onest / Nohemi) ---- */
+  --fs-h1: 64px;   /* hero "Bharathiraja Thangapplalam" */
+  --fs-h2: 40px;
+  --fs-h3: 32px;
+  --fs-h4: 24px;   /* episode title, "Featured Episodes" */
+  --fs-h5: 20px;
+
+  /* ---- Body / UI ---- */
+  --fs-body-lg: 24px;  /* big centered description */
+  --fs-body:    18px;
+  --fs-body-sm: 16px;
+  --fs-caption: 14px;  /* episode meta, time codes */
+  --fs-micro:   12px;
+
+  /* ---- Weights (Nohemi ships Thin→SemiBold; map to Onest) ---- */
+  --fw-thin:       100; /* @kind other */
+  --fw-extralight: 200; /* @kind other */
+  --fw-light:      300; /* @kind other */ /* MOST headings in the design are Light */
+  --fw-regular:    400; /* @kind other */
+  --fw-medium:     500; /* @kind other */
+  --fw-semibold:   600; /* @kind other */
+  --fw-bold:       700; /* @kind other */
+
+  /* ---- Line heights ---- */
+  --lh-display: 0.92; /* @kind other */
+  --lh-tight:   1.09; /* @kind other */ /* Nohemi headings in source */
+  --lh-snug:    1.3;  /* @kind other */
+  --lh-body:    1.55; /* @kind other */
+
+  /* ---- Tracking ---- */
+  --ls-display: 0.01em;  /* @kind other */
+  --ls-tight:   -0.01em; /* @kind other */
+  --ls-normal:  0;       /* @kind other */
+  --ls-label:   0.02em;  /* @kind other */
+}

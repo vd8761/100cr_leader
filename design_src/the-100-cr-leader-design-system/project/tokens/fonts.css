@@ -1,0 +1,18 @@
+/* ============================================================
+   FONTS - The 100 CR Leader
+   ------------------------------------------------------------
+   Brand fonts (from the Figma source):
+     • Bebas Neue  - giant display headline ("THE 100 CR LEADER")
+     • Nohemi      - primary UI / headings / body  (COMMERCIAL - substituted)
+     • Gilroy      - tiny platform labels           (COMMERCIAL - substituted)
+
+   SUBSTITUTIONS (flagged to the user):
+     Nohemi  → Onest         (geometric grotesque, very close proportions)
+     Gilroy  → Onest         (single family covers the small-label role)
+     Bebas Neue → Bebas Neue (exact match, on Google Fonts)
+
+   To restore brand fidelity, drop the real Nohemi / Gilroy .woff2 files
+   into tokens/ and replace the @import below with @font-face rules.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Onest:wght@300;400;500;600;700;800&display=swap');

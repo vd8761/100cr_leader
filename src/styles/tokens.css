@@ -1,0 +1,168 @@
+/* ============================================================
+   DESIGN TOKENS - The 100 CR Leader
+   Ported from the Claude Design handoff (tokens/*.css).
+   Large type is made fluid with clamp() so the editorial scale
+   holds from a 320px phone up to the 1920px canvas.
+   ============================================================ */
+
+/* Fonts are self-hosted via @fontsource and imported in src/main.jsx
+   (Bebas Neue 400 + Onest 300–800) so they load reliably and offline. */
+
+:root {
+  /* ---- Forest greens (primary ink + dark surfaces) ---- */
+  --forest-900: #1D271C;
+  --forest-800: #232E22;
+  --forest:     #2C362B;
+  --forest-700: #3A463A;
+  --forest-300: rgba(44, 54, 43, 0.30);
+  --forest-024: rgba(44, 54, 43, 0.24);
+
+  /* ---- Hero accent ---- */
+  --navy: #12265C;
+
+  /* ---- Warm paper neutrals ---- */
+  --paper:   #F2F1E7;
+  --paper-2: #EEEDE1;
+  --paper-3: #E8E6D6;
+  --cream:   #FFFEF1;
+  --white:   #FFFFFF;
+  --black:   #000000;
+
+  /* ---- Sand / olive ---- */
+  --sand:      #D6D3B2;
+  --sand-soft: rgba(214, 211, 178, 0.55);
+  --rule-dark:  rgba(214, 211, 178, 0.25);
+  --rule-light: rgba(44, 54, 43, 0.14);
+
+  /* ---- Gold accent ---- */
+  --gold: #FBBC04;
+
+  /* ---- Text roles ---- */
+  --text-on-dark:        #F2F1E7;
+  --text-on-dark-muted:  rgba(242, 241, 231, 0.66);
+  --text-on-light:       #2C362B;
+  --text-on-light-muted: rgba(44, 54, 43, 0.62);
+
+  /* ---- Platform brand colors ---- */
+  --spotify:   #12C64B;
+  --youtube:   #FF0000;
+  --jiosaavn:  #1ECCB0;
+  --whatsapp:  #25D366;
+  --facebook:  #1877F2;
+  --linkedin:  #0A66C2;
+  --x:         #000000;
+  --instagram: #E4405F;
+  --google-blue:   #4285F4;
+  --google-red:    #EA4335;
+  --google-yellow: #FBBC04;
+  --google-green:  #34A853;
+
+  /* ---- Semantic surface aliases ---- */
+  --surface-dark:  var(--forest);
+  --surface-light: var(--paper);
+  --surface-card:  var(--paper-2);
+  --border-subtle: var(--rule-light);
+
+  /* ---- Families ---- */
+  --font-display: 'Bebas Neue', 'Onest', sans-serif;
+  --font-sans:    'Onest', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-label:   'Onest', -apple-system, sans-serif;
+
+  /* ---- Display scale (Bebas Neue) ---- */
+  --fs-display-xl: 168px;
+  --fs-display-lg: 96px;
+  --fs-display-md: 60px;
+
+  /* ---- Heading scale - fluid ---- */
+  --fs-h1: clamp(40px, 7vw, 64px);
+  --fs-h2: clamp(30px, 4.4vw, 40px);
+  --fs-h3: clamp(24px, 3.4vw, 32px);
+  --fs-h4: clamp(20px, 2.4vw, 24px);
+  --fs-h5: clamp(17px, 2vw, 20px);
+
+  /* ---- Body / UI - fluid where it matters ---- */
+  --fs-body-lg: clamp(18px, 2.3vw, 24px);
+  --fs-body:    clamp(16px, 1.5vw, 18px);
+  --fs-body-sm: 16px;
+  --fs-caption: 14px;
+  --fs-micro:   12px;
+
+  /* ---- Weights ---- */
+  --fw-thin: 100;
+  --fw-extralight: 200;
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* ---- Line heights ---- */
+  --lh-display: 0.92;
+  --lh-tight: 1.09;
+  --lh-snug: 1.3;
+  --lh-body: 1.55;
+
+  /* ---- Tracking ---- */
+  --ls-display: 0.01em;
+  --ls-tight: -0.01em;
+  --ls-normal: 0;
+  --ls-label: 0.02em;
+
+  /* ---- Spacing scale (4px base) ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* ---- Layout (responsive) ---- */
+  --page-gutter: 80px;
+  --content-max: 1760px;
+  --section-y: var(--space-32);
+
+  /* ---- Radii ---- */
+  --radius-sm: 6px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* ---- Borders ---- */
+  --border-hairline: 1px solid var(--rule-light);
+  --border-hairline-dark: 1px solid var(--rule-dark);
+
+  /* ---- Shadows ---- */
+  --shadow-sm: 0 2px 8px rgba(44, 54, 43, 0.06);
+  --shadow: 0 8px 28px rgba(44, 54, 43, 0.10);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.18);
+  --shadow-photo: 0 30px 80px rgba(0, 0, 0, 0.25);
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 0.18s;
+  --dur: 0.28s;
+  --dur-slow: 0.5s;
+}
+
+/* ---- Responsive layout variables ---- */
+@media (max-width: 1100px) {
+  :root {
+    --page-gutter: 48px;
+    --section-y: var(--space-24);
+  }
+}
+@media (max-width: 680px) {
+  :root {
+    --page-gutter: 22px;
+    --section-y: var(--space-16);
+    --fs-display-xl: 96px;
+  }
+}

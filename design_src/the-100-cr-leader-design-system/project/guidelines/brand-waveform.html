@@ -1,0 +1,21 @@
+<!-- @dsCard group="Brand" viewport="700x220" name="Waveform Motif" subtitle="The signature audio capsules behind the hero" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--paper); display:flex; align-items:center; gap:18px; height:100vh; padding: 0 40px; box-sizing:border-box; }
+  .wave { display:flex; align-items:center; gap:18px; height: 150px; }
+  .cap { width: 26px; border-radius: 13px; background: var(--forest); opacity:0.12; }
+</style>
+</head>
+<body>
+  <div class="wave" id="w"></div>
+  <script>
+    const hs=[40,70,55,100,62,30,80,48,92,58,72,38,86,52];
+    const w=document.getElementById('w');
+    hs.forEach(h=>{const s=document.createElement('span');s.className='cap';s.style.height=h+'%';w.appendChild(s);});
+  </script>
+</body>
+</html>

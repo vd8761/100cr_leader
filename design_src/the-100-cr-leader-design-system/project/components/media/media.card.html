@@ -1,0 +1,46 @@
+<!-- @dsCard group="Components" viewport="700x340" name="Platform Pills · Icons · Waveform" subtitle="Listening platforms, socials & the audio motif" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin: 0; font-family: var(--font-sans); background: var(--paper); padding: 26px 30px; }
+  .bar { background: var(--forest); border-radius: 14px; padding: 18px 24px; display:flex; gap:34px; flex-wrap:wrap; margin-bottom: 20px; }
+  .row { display:flex; align-items:center; gap:16px; margin-bottom: 18px; }
+  .label { font-size:11px; color:var(--text-on-light-muted); margin-bottom:8px; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { PlatformPill, PlatformIcon, SocialIcon, Waveform, AudioPlayer } = window.The100CRLeaderDesignSystem_2a705c;
+  function App() {
+    return (
+      <div>
+        <div className="bar">
+          <PlatformPill platform="spotify" tone="dark" />
+          <PlatformPill platform="youtube" tone="dark" />
+          <PlatformPill platform="google" tone="dark" />
+          <PlatformPill platform="jiosaavn" tone="dark" />
+        </div>
+        <div className="row">
+          <PlatformIcon platform="spotify" /><PlatformIcon platform="youtube" /><PlatformIcon platform="google" ring /><PlatformIcon platform="jiosaavn" />
+          <span style={{width:20}}></span>
+          <SocialIcon platform="linkedin" tone="light" /><SocialIcon platform="facebook" tone="light" /><SocialIcon platform="x" tone="light" /><SocialIcon platform="instagram" tone="light" />
+        </div>
+        <div>
+          <div className="label">AudioPlayer</div>
+          <AudioPlayer seed="ep1" />
+        </div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

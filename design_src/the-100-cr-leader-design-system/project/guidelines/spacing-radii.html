@@ -1,0 +1,24 @@
+<!-- @dsCard group="Spacing" viewport="700x170" name="Radii" subtitle="From hairline-soft cards to full pills" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; font-family: var(--font-label); background: var(--paper); }
+  .row { display: flex; gap: 18px; padding: 24px; align-items: flex-end; }
+  .b { width: 90px; height: 70px; background: var(--forest); display:flex; align-items:flex-end; justify-content:center; }
+  .cap { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .lab { font-size: 11px; color: var(--text-on-light-muted); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="cap"><div class="b" style="border-radius:var(--radius-sm)"></div><span class="lab">sm · 6</span></div>
+    <div class="cap"><div class="b" style="border-radius:var(--radius)"></div><span class="lab">base · 12</span></div>
+    <div class="cap"><div class="b" style="border-radius:var(--radius-lg)"></div><span class="lab">lg · 16</span></div>
+    <div class="cap"><div class="b" style="border-radius:var(--radius-xl)"></div><span class="lab">xl · 24</span></div>
+    <div class="cap"><div class="b" style="border-radius:var(--radius-pill)"></div><span class="lab">pill</span></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!-- @dsCard group="Colors" viewport="700x180" name="Forest Greens" subtitle="Primary brand green - backgrounds & ink" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; font-family: var(--font-label); background: var(--paper); }
+  .row { display: flex; gap: 0; padding: 20px; }
+  .sw { flex: 1; height: 120px; border-radius: var(--radius); display: flex; flex-direction: column; justify-content: flex-end; padding: 12px; box-sizing: border-box; }
+  .sw + .sw { margin-left: 12px; }
+  .name { font-size: 13px; font-weight: 700; }
+  .hex { font-size: 12px; opacity: 0.7; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw" style="background:var(--forest-900);color:var(--sand)"><span class="name">forest-900</span><span class="hex">#1D271C</span></div>
+    <div class="sw" style="background:var(--forest-800);color:var(--sand)"><span class="name">forest-800</span><span class="hex">#232E22</span></div>
+    <div class="sw" style="background:var(--forest);color:var(--sand)"><span class="name">forest</span><span class="hex">#2C362B</span></div>
+    <div class="sw" style="background:var(--forest-700);color:var(--sand)"><span class="name">forest-700</span><span class="hex">#3A463A</span></div>
+  </div>
+</body>
+</html>

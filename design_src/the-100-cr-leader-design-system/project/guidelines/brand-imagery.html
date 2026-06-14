@@ -1,0 +1,21 @@
+<!-- @dsCard group="Brand" viewport="700x300" name="Cover Art & Portraits" subtitle="Episode cover and host headshots" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; font-family: var(--font-label); background: var(--paper); display:flex; gap:18px; padding: 22px; box-sizing:border-box; align-items:center; }
+  .cover { width: 256px; height: 256px; border-radius: var(--radius); object-fit: cover; box-shadow: var(--shadow); }
+  .col { display:flex; gap:14px; flex:1; }
+  .por { flex:1; height: 256px; border-radius: var(--radius); background: var(--paper-2); object-fit: cover; object-position: top center; border: 1px solid var(--rule-light); }
+</style>
+</head>
+<body>
+  <img class="cover" src="../assets/brand/cover-ep1.jpeg" alt="Episode 1 cover">
+  <div class="col">
+    <img class="por" src="../assets/author-photo.png" alt="Host portrait standing">
+    <img class="por" src="../assets/author-seated.png" alt="Host portrait seated">
+  </div>
+</body>
+</html>
