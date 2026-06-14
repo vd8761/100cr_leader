@@ -29,3 +29,4 @@ pnpm-debug.log*
 
 # design handoff bundle (kept locally, not part of the app build)
 design_bundle.bin
+design_src/*
