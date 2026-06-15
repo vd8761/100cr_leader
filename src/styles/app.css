@@ -159,16 +159,14 @@
 
 @media (max-width: 1024px) {
   .nav {
-    justify-content: space-between;
+    justify-content: flex-end; /* just the hamburger, pinned to the right */
     padding: var(--space-3) var(--page-gutter);
   }
   .nav__bar {
     display: none;
   }
   .nav__brand {
-    display: block;
-    font-size: 22px;
-    margin: 0;
+    display: none; /* no "100 CR" brand label in the collapsed bar */
   }
   .nav__toggle {
     display: flex;
@@ -200,10 +198,10 @@
   white-space: nowrap;
 }
 
-/* Floating host cut-out - cropped to the upper body (above the hip) and
-   scaled up. The wrapper owns the centering (so GSAP's parallax transforms
-   on the image don't fight it); the image box + object-fit cover does the
-   crop and sits at the paper band's edge, just above the platform bar. */
+/* Floating host cut-out. The wrapper owns the centering (so GSAP's parallax
+   on the image doesn't fight it) and is anchored to the bottom of the hero,
+   reaching DOWN behind the platform bar (z-index lower than the bar, so the
+   bar hides the lower crop) and UP into the middle of the wordmark. */
 .hero__portrait-wrap {
   position: absolute;
   left: 50%;
@@ -215,11 +213,25 @@
 
 .hero__portrait {
   display: block;
-  width: clamp(330px, 46vw, 600px);
-  height: clamp(300px, 43vh, 486px); /* shorter than width → object-fit crops below the hip */
+  /* SQUARE box for a square (3750×3750) image → object-fit makes no crop,
+     so the resting fist is never sliced off. Height is the controlling
+     dimension (capped so the head lands near the wordmark's midline). */
+  height: clamp(680px, 92vh, 720px);
+  width: auto;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
-  object-position: center top; /* keep head + torso, crop below the hip */
-  filter: drop-shadow(0 28px 70px rgba(0, 0, 0, 0.42));
+  object-position: center bottom;
+  filter: drop-shadow(0 30px 70px rgba(0, 0, 0, 0.45));
+}
+
+/* The resting-hand overlay: identical canvas/crop to the portrait, layered
+   above the platform bar so the hand appears to rest on it. */
+.hero__portrait-wrap--hand {
+  z-index: 3;
+}
+
+.hero__portrait-hand {
+  filter: drop-shadow(-4px 6px 9px rgba(0, 0, 0, 0.4));
 }
 
 @media (max-width: 1150px) {
@@ -232,6 +244,10 @@
   .hero__wordmark {
     white-space: normal;
     line-height: 0.9;
+  }
+  /* Tighten the gap between the collapsed nav (hamburger) and the wordmark. */
+  .hero__top {
+    padding-top: clamp(78px, 10vh, 104px);
   }
 }
 
@@ -267,27 +283,126 @@
 }
 
 .hero__platform-bar {
+  position: relative;
+  z-index: 2; /* covers the portrait's lower crop so the cut isn't visible */
   background: var(--forest-700);
   border-top: 1px solid var(--rule-dark);
 }
 
-.hero__platform-inner {
+/* "Listen on" rail: a centred eyebrow + a single row of compact brand discs.
+   The discs are narrow, so the row stays one tidy centred line at every width
+   (320px and up) — no folding or 2×2/1×4 reshuffling. On DESKTOP the bar height
+   is LOCKED (the host's hand-overlay rests on it), so the content is centred
+   inside a fixed height rather than driven by padding. Below 1151px the portrait
+   is hidden, so the rail breathes with normal padding. */
+.hero__listen {
   max-width: var(--content-max);
   margin: 0 auto;
   padding: var(--space-5) var(--page-gutter);
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--space-6);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.hero__listen-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-medium);
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-on-dark-muted);
+}
+
+.hero__listen-rule {
+  width: clamp(18px, 6vw, 46px);
+  height: 1px;
+  background: var(--rule-dark);
+}
+
+.hero__listen-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(var(--space-3), 4vw, var(--space-8));
+}
+
+/* one brand disc + caption */
+.plat-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  border-radius: var(--radius);
+  transition: transform var(--dur) var(--ease);
+}
+
+.plat-badge__disc {
+  display: inline-flex;
+  border-radius: 50%;
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.plat-badge__name {
+  font-family: var(--font-label);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-medium);
+  line-height: 1;
+  letter-spacing: var(--ls-label);
+  color: var(--text-on-dark-muted);
+  white-space: nowrap;
+  transition: color var(--dur) var(--ease);
+}
+
+/* hover / keyboard focus: the disc lifts off the bar and glows in its own
+   brand colour, the caption brightens to full ink. */
+.plat-badge:hover,
+.plat-badge:focus-visible {
+  transform: translateY(-6px);
+  outline: none;
+}
+.plat-badge:hover .plat-badge__disc,
+.plat-badge:focus-visible .plat-badge__disc {
+  transform: scale(1.1);
+  box-shadow: 0 10px 30px -4px var(--brand);
+}
+.plat-badge:hover .plat-badge__name,
+.plat-badge:focus-visible .plat-badge__name {
+  color: var(--text-on-dark);
+}
+
+/* Desktop only (where the portrait + hand-overlay show): lock the bar height so
+   the hand keeps resting on it (matches the old pill bar exactly: 56 + 2×20 =
+   96px). The host rests his hand at the CENTRE of the bar, so: hide the eyebrow
+   (the hand would cover it) and split the four discs into two pairs that flank a
+   central void where the hand sits. The void is sized to clear the fist even as
+   the portrait drifts ±22px with the mouse parallax. */
+@media (min-width: 1151px) {
+  .hero__listen {
+    height: 96px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .hero__listen-eyebrow {
+    display: none;
+  }
+  .hero__listen-row .plat-badge:nth-child(2) {
+    margin-right: clamp(120px, 12vw, 190px);
+  }
 }
 
 @media (max-width: 1150px) {
   .hero__name-inner {
     justify-content: flex-start; /* no portrait → name leads from the left */
-  }
-  .hero__platform-inner {
-    justify-content: flex-start;
-    gap: var(--space-8) var(--space-10);
   }
 }
 
@@ -297,12 +412,6 @@
   }
   .hero__waveform {
     opacity: 0.32;
-  }
-}
-
-@media (max-width: 520px) {
-  .hero__platform-inner {
-    gap: var(--space-6) var(--space-8);
   }
 }
 

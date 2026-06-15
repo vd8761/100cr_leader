@@ -181,11 +181,13 @@ a {
 /* ============================================================
    CUSTOM CURSOR - hide the native cursor only when ours is active
    ============================================================ */
+/* While the custom cursor is active (desktop / fine-pointer only) suppress
+   EVERY native cursor — the pointer on buttons/links and the I-beam on text
+   inputs — so only our dot-and-ring shows. !important overrides component
+   primitives that set their own `cursor: pointer`. */
 .has-cursor,
-.has-cursor a,
-.has-cursor button,
-.has-cursor [data-cursor] {
-  cursor: none;
+.has-cursor * {
+  cursor: none !important;
 }
 
 /* ============================================================

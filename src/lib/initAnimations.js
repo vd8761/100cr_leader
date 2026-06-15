@@ -103,14 +103,26 @@ export function initAnimations({ wrapper, content }) {
       gsap.from(nameKids, { y: 44, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.12, delay: 0.55 });
     }
 
-    const portrait = document.querySelector('[data-hero-portrait]');
-    if (portrait) gsap.from(portrait, { yPercent: 12, opacity: 0, duration: 1.2, ease: 'power3.out', delay: 0.7 });
+    /* both the body cut-out and the resting-hand overlay carry
+       [data-hero-portrait]. Fade only (no vertical slide) so the hand
+       never appears to "come from below" / look like a separate cut. */
+    const portraits = gsap.utils.toArray('[data-hero-portrait]');
+    const portrait = portraits[0];
+    if (portraits.length) gsap.from(portraits, { opacity: 0, duration: 1.2, ease: 'power2.out', delay: 0.7 });
 
+    /* Opacity-only stagger (no transform): the rail bar height is locked tight
+       on desktop, so a y-offset would push the captions past the bar; and an
+       inline transform from GSAP would also clobber the badges' CSS :hover lift.
+       Fading them in keeps the transform free for the hover interaction. */
     const pills = gsap.utils.toArray('[data-hero-platforms] > *');
     if (pills.length) {
       gsap.from(pills, {
-        y: 26, opacity: 0, duration: 0.7, ease: 'power3.out', stagger: 0.08,
-        scrollTrigger: { trigger: '[data-hero-platforms]', start: 'top 95%' },
+        opacity: 0, duration: 0.7, ease: 'power2.out', stagger: 0.08,
+        // 'top bottom' resolves to a negative scroll for this near-fold bar, so
+        // it fires on load when visible (and still lazy-reveals on short screens
+        // where the bar starts below the fold). 'top 95%' sat right on the edge
+        // and intermittently never fired, leaving the discs invisible.
+        scrollTrigger: { trigger: '[data-hero-platforms]', start: 'top bottom' },
       });
     }
 
@@ -132,14 +144,15 @@ export function initAnimations({ wrapper, content }) {
       const waveY = wave && gsap.quickTo(wave, 'y', { duration: 0.8, ease: 'power3' });
       const nameX = nameBox && gsap.quickTo(nameBox, 'x', { duration: 1, ease: 'power3' });
       const nameY = nameBox && gsap.quickTo(nameBox, 'y', { duration: 1, ease: 'power3' });
-      const portX = portrait && gsap.quickTo(portrait, 'x', { duration: 1.1, ease: 'power3' });
-      const portY = portrait && gsap.quickTo(portrait, 'y', { duration: 1.1, ease: 'power3' });
+      /* X-axis only for the portrait — any vertical drift makes the hand
+         overlay look like a separate cut sliding against the bar. */
+      const portX = portraits.map((el) => gsap.quickTo(el, 'x', { duration: 1.1, ease: 'power3' }));
       const onMove = (e) => {
         const cx = (e.clientX / window.innerWidth - 0.5) * 2;
         const cy = (e.clientY / window.innerHeight - 0.5) * 2;
         if (waveX) { waveX(cx * 36); waveY(cy * 22); }
         if (nameX) { nameX(cx * -18); nameY(cy * -12); }
-        if (portX) { portX(cx * 24); portY(cy * 14); }
+        portX.forEach((fn) => fn(cx * 22));
       };
       heroEl.addEventListener('pointermove', onMove);
       cleanups.push(() => heroEl.removeEventListener('pointermove', onMove));
