@@ -66,7 +66,7 @@ export const INITIATIVES = [
     title: 'OriginBI',
     desc: 'AI-powered role fitment, leadership assessment, and technical screening. Stop hiring on gut. Start hiring on intelligence.',
     cta: 'Book a Demo',
-    href: 'mailto:bharathiraja@originbi.com',
+    href: LINKS.originbi,
   },
   {
     tag: 'Workshop',
@@ -104,3 +104,8 @@ export const SPEAKING_TYPES = [
   'Book Early Access',
   'Podcast / Interview',
 ];
+
+/* "Pre-order the Book" (FinalCTA) jumps to the booking form and presets the
+   "What for?" dropdown to this value — must match an entry in SPEAKING_TYPES. */
+export const BOOK_ACCESS_TOPIC = 'Book Early Access';
+export const BOOKING_PREFILL_EVENT = 'booking-prefill';

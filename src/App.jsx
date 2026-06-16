@@ -55,7 +55,7 @@ export default function App() {
             <Episodes />
             <Speaking />
             <Initiatives />
-            <FinalCTA />
+            <FinalCTA onNavigate={navigate} />
             <Circle />
             <Footer />
           </main>

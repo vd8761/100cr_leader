@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '../components/Button.jsx';
-import { SPEAKING_TOPICS, SPEAKING_AUDIENCES, SPEAKING_TYPES } from '../data/site.js';
+import { SPEAKING_TOPICS, SPEAKING_AUDIENCES, SPEAKING_TYPES, BOOKING_PREFILL_EVENT } from '../data/site.js';
 
 const ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT || '/api/contact';
 
@@ -13,6 +13,17 @@ export function Speaking() {
   const [message, setMessage] = React.useState('');
 
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
+
+  /* Let other sections (e.g. "Pre-order the Book") preset the "What for?"
+     dropdown when they route the visitor here. */
+  React.useEffect(() => {
+    const onPrefill = (e) => {
+      const topic = e.detail?.topic;
+      if (topic && SPEAKING_TYPES.includes(topic)) setForm((f) => ({ ...f, topic }));
+    };
+    window.addEventListener(BOOKING_PREFILL_EVENT, onPrefill);
+    return () => window.removeEventListener(BOOKING_PREFILL_EVENT, onPrefill);
+  }, []);
 
   const submit = async (e) => {
     e.preventDefault();
