@@ -1,8 +1,45 @@
+import React from 'react';
 import { Button } from '../components/Button.jsx';
 import { SPEAKING_TOPICS, SPEAKING_AUDIENCES, SPEAKING_TYPES } from '../data/site.js';
 
+const ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT || '/api/contact';
+
 /* Speaking & workshops + booking form. */
 export function Speaking() {
+  const [form, setForm] = React.useState({
+    name: '', organisation: '', email: '', topic: SPEAKING_TYPES[0], message: '',
+  });
+  const [status, setStatus] = React.useState('idle'); // idle | loading | ok | error
+  const [message, setMessage] = React.useState('');
+
+  const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
+
+  const submit = async (e) => {
+    e.preventDefault();
+    if (status === 'loading') return;
+    if (!form.name.trim() || !form.email.trim()) {
+      setStatus('error');
+      setMessage('Please add your name and email.');
+      return;
+    }
+    setStatus('loading');
+    setMessage('');
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error(await res.text().catch(() => 'failed'));
+      setStatus('ok');
+      setMessage("Request sent. Check your inbox for a copy - we'll reply within 48 hours.");
+      setForm({ name: '', organisation: '', email: '', topic: SPEAKING_TYPES[0], message: '' });
+    } catch (err) {
+      setStatus('error');
+      setMessage('Something went wrong. Please try again, or email info@touchmarkdes.com.');
+    }
+  };
+
   return (
     <section id="speaking" className="speaking section section--pad on-dark" data-chapter="speaking">
       <div className="section__inner speaking__grid">
@@ -31,19 +68,36 @@ export function Speaking() {
         <div className="booking" id="contact" data-scale-in>
           <h3>Book Bharathiraja</h3>
           <p>Tell me what you need. I'll respond within 48 hours.</p>
-          <form onSubmit={(e) => e.preventDefault()}>
-            <div className="field"><label>Your Name</label><input type="text" placeholder="Full name" /></div>
-            <div className="field"><label>Organisation</label><input type="text" placeholder="Company / College" /></div>
-            <div className="field"><label>Email</label><input type="email" placeholder="you@company.com" /></div>
+          <form onSubmit={submit}>
             <div className="field">
-              <label>What for?</label>
-              <select>
+              <label htmlFor="bk-name">Your Name</label>
+              <input id="bk-name" type="text" placeholder="Full name" value={form.name} onChange={set('name')} required />
+            </div>
+            <div className="field">
+              <label htmlFor="bk-org">Organisation</label>
+              <input id="bk-org" type="text" placeholder="Company / College" value={form.organisation} onChange={set('organisation')} />
+            </div>
+            <div className="field">
+              <label htmlFor="bk-email">Email</label>
+              <input id="bk-email" type="email" placeholder="you@company.com" value={form.email} onChange={set('email')} required />
+            </div>
+            <div className="field">
+              <label htmlFor="bk-topic">What for?</label>
+              <select id="bk-topic" value={form.topic} onChange={set('topic')}>
                 {SPEAKING_TYPES.map((t) => <option key={t}>{t}</option>)}
               </select>
             </div>
-            <div className="field"><label>Tell me more</label><textarea placeholder="Event details, audience, date..." /></div>
-            <Button variant="solid" type="submit" icon="arrow-right" className="booking__submit">Send Request</Button>
+            <div className="field">
+              <label htmlFor="bk-msg">Tell me more</label>
+              <textarea id="bk-msg" placeholder="Event details, audience, date..." value={form.message} onChange={set('message')} />
+            </div>
+            <Button variant="solid" type="submit" icon="arrow-right" className="booking__submit">
+              {status === 'loading' ? 'Sending…' : 'Send Request'}
+            </Button>
           </form>
+          {message && (
+            <p className="booking__status" role="status" data-state={status}>{message}</p>
+          )}
         </div>
       </div>
     </section>

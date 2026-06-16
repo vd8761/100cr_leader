@@ -7,7 +7,7 @@ export function Footer() {
     <footer className="footer">
       <div className="footer__cols">
         <div className="footer__about">
-          <p className="footer__brand">The 100 CR Leader</p>
+          <p className="footer__brand">The 100 Cr Leader</p>
           <p className="footer__tag">
             A weekly newsletter, podcast, workshop, and book by Bharathiraja Thangappalam. For
             founders who are serious about scaling.
@@ -35,7 +35,7 @@ export function Footer() {
           <ul>
             <li><a href="#book">The Book</a></li>
             <li><a href="#speaking">Reflect Workshop</a></li>
-            <li><a href={LINKS.email}>OriginBI</a></li>
+            <li><a href={LINKS.originbi} target="_blank" rel="noreferrer">OriginBI</a></li>
             <li><a href="#speaking">Speaking</a></li>
           </ul>
         </div>
@@ -51,7 +51,7 @@ export function Footer() {
       </div>
 
       <div className="footer__bottom">
-        <p>© 2026 Bharathiraja Thangappalam · 100crleader.com</p>
+        <p>© 2026 Bharathiraja Thangappalam · the100croreleader.com</p>
         <p>Built for founders scaling from breakeven to ₹100 crore.</p>
       </div>
     </footer>

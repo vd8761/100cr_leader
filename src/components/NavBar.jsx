@@ -51,7 +51,7 @@ export function NavBar({ onNavigate }) {
   return (
     <>
       <header className={`nav${scrolled ? ' is-scrolled' : ''}`}>
-        <a className="nav__brand" href="#home" onClick={(e) => go(e, 'home')}>100 CR</a>
+        <a className="nav__brand" href="#home" onClick={(e) => go(e, 'home')}>THE 100 CR</a>
 
         <nav className="nav__bar" aria-label="Primary">
           <div className="nav__links">

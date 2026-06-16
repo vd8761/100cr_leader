@@ -291,7 +291,7 @@
 
 /* "Listen on" rail: a centred eyebrow + a single row of compact brand discs.
    The discs are narrow, so the row stays one tidy centred line at every width
-   (320px and up) — no folding or 2×2/1×4 reshuffling. On DESKTOP the bar height
+   (320px and up) - no folding or 2×2/1×4 reshuffling. On DESKTOP the bar height
    is LOCKED (the host's hand-overlay rests on it), so the content is centred
    inside a fixed height rather than driven by padding. Below 1151px the portrait
    is hidden, so the rail breathes with normal padding. */
@@ -563,7 +563,7 @@
   margin: 0 auto;
   padding: var(--section-y) var(--page-gutter);
   display: grid;
-  grid-template-columns: 1fr 360px 1fr;
+  grid-template-columns: 1fr 0.85fr;
   gap: var(--space-16);
   align-items: center;
 }
@@ -614,6 +614,20 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-8);
+}
+/* Primary "join" action - override the Button primitive's muted sand inline
+   styles so it reads as an active gold pill (matching the closing CTA), not a
+   disabled-looking grey one. */
+.circle__join {
+  background: var(--gold) !important;
+  color: var(--forest-900) !important;
+  border: none !important;
+  font-weight: var(--fw-semibold) !important;
+}
+.circle__join:hover {
+  background: #FFCC2E !important;
+  color: var(--forest-900) !important;
+  transform: translateY(-2px);
 }
 
 .circle__blurb {

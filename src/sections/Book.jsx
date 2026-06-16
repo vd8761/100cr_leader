@@ -1,8 +1,19 @@
 import { Button } from '../components/Button.jsx';
-import { BOOK_FEATURES, LINKS } from '../data/site.js';
+import { BOOK_FEATURES } from '../data/site.js';
 
 /* The Book - "Leadership Beyond Limits" / The 100cr Leader. */
-export function Book() {
+export function Book({ onNavigate }) {
+  /* "Notify me" isn't a separate signup - it routes founders straight to the
+     Sunday-newsletter card and drops focus into the email field so they can
+     subscribe in one motion (preventScroll so ScrollSmoother owns the glide). */
+  const notify = (e) => {
+    e.preventDefault();
+    if (onNavigate) onNavigate('newsletter');
+    setTimeout(() => {
+      document.getElementById('newsletter-email')?.focus({ preventScroll: true });
+    }, 900);
+  };
+
   return (
     <section id="book" className="book section section--pad on-light" data-chapter="book">
       <div className="section__inner book__grid">
@@ -39,7 +50,7 @@ export function Book() {
             ))}
           </div>
 
-          <Button variant="solid" icon="arrow-right" href={LINKS.linkedinNewsletter} target="_blank" rel="noreferrer">
+          <Button variant="solid" icon="arrow-right" href="#newsletter" onClick={notify}>
             Notify Me
           </Button>
         </div>

@@ -3,10 +3,11 @@
 export const LINKS = {
   linkedinNewsletter:
     'https://www.linkedin.com/newsletters/the-100-crore-leader-7277973005513711616/',
-  spotifyShow: 'https://open.spotify.com/show/69llhW3MIL0jcAhifH8cAE',
+  spotifyShow: 'https://open.spotify.com/show/69llhW3MIL0jcAhifH8cAE?si=6c7d2e84693e42f1',
   whatsapp: 'https://chat.whatsapp.com/IIsHlWiCOee3eubtKP3U4r',
   youtube: 'https://www.youtube.com/@elevatewithbharathiraja',
   instagram: 'https://www.instagram.com/elevatewithbharathiraja',
+  originbi: 'https://originbi.com',
   email: 'mailto:bharathiraja@originbi.com',
 };
 
@@ -30,7 +31,7 @@ export const EPISODES = [
   },
   {
     episode: 2,
-    title: 'The 100 Crore Leader Identity - Who You Must Become',
+    title: 'The 100 Cr Leader Identity - Who You Must Become',
     desc: "Scaling isn't a business problem first. It's a leadership identity problem. Here's how to close the gap.",
     total: '21:05', current: '00:00', progress: 0,
   },
@@ -44,7 +45,7 @@ export const EPISODES = [
 
 /* The book. */
 export const BOOK_FEATURES = [
-  { title: 'The 100cr Framework', desc: 'The exact thinking model for scaling without chaos.' },
+  { title: 'The 100 Cr Framework', desc: 'The exact thinking model for scaling without chaos.' },
   { title: 'Real Case Studies', desc: 'Founders who crossed breakeven - and what shifted.' },
   { title: 'Leader Identity', desc: 'Build who you need to become, not just what you need to do.' },
   { title: '90-Day Playbook', desc: 'Turn insight into execution - starting Monday.' },

@@ -41,8 +41,6 @@ export default function App() {
   return (
     <>
       <div className="scroll-progress" />
-      <div className="cursor-ring" aria-hidden="true" />
-      <div className="cursor-dot" aria-hidden="true" />
 
       <NavBar onNavigate={navigate} />
       <ChapterRail onNavigate={navigate} />
@@ -52,7 +50,7 @@ export default function App() {
           <main>
             <Hero />
             <About />
-            <Book />
+            <Book onNavigate={navigate} />
             <Newsletter />
             <Episodes />
             <Speaking />

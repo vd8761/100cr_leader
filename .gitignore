@@ -27,6 +27,13 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
+# environment / secrets - never commit real keys
+.env
+.env.*
+!.env.example
+
 # design handoff bundle (kept locally, not part of the app build)
 design_bundle.bin
 design_src/*
+.vercel
+.claude

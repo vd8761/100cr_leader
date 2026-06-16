@@ -9,7 +9,7 @@ export function About() {
 
       <div className="about__grid">
         <div className="about__photo" data-unveil>
-          <img src="/assets/brand/promo-author.png" alt="The 100 CR Leader - Bharathiraja Thangapplalam" />
+          <img src="/assets/brand/promo-author.png" alt="The 100 Cr Leader - Bharathiraja Thangapplalam" />
         </div>
 
         <div className="about__copy">
@@ -28,7 +28,7 @@ export function About() {
           </blockquote>
           <p className="lead-p" style={{ color: 'var(--text-on-dark-muted)', marginTop: 0 }}>
             That's why I built OriginBI - AI that tells you who belongs where before it costs you.
-            That's why I write the 100 Crore Leader every week. That's why I run the Reflect
+            That's why I write The 100 Cr Leader every week. That's why I run the Reflect
             Leadership Workshop - because there are moments when a conversation changes everything.
           </p>
 

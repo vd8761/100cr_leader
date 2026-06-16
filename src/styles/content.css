@@ -101,10 +101,18 @@
 .book__mock {
   position: relative;
   aspect-ratio: 3 / 4;
-  border-radius: 6px 12px 12px 6px;
-  background: linear-gradient(135deg, var(--forest-800), var(--forest-900));
-  box-shadow: var(--shadow-photo), inset 6px 0 0 rgba(0, 0, 0, 0.28),
-    inset 9px 0 0 rgba(214, 211, 178, 0.12);
+  border-radius: 4px 14px 14px 4px;
+  /* warm gold-lit forest: a soft glow off the top-left, deepening toward the
+     fore-edge so the cover reads like a real lit hardback rather than a flat
+     olive panel. */
+  background:
+    radial-gradient(120% 85% at 28% -5%, rgba(251, 188, 4, 0.12), transparent 52%),
+    linear-gradient(150deg, var(--forest-700) 0%, var(--forest-800) 44%, var(--forest-900) 100%);
+  box-shadow:
+    var(--shadow-photo),
+    inset 7px 0 0 rgba(0, 0, 0, 0.32),          /* spine shadow */
+    inset 10px 0 0 rgba(251, 188, 4, 0.20),      /* gold foil spine line */
+    inset 0 0 0 1px rgba(214, 211, 178, 0.08);
   padding: var(--space-10) var(--space-8) var(--space-8) var(--space-12);
   display: flex;
   flex-direction: column;
@@ -112,9 +120,20 @@
   transform: rotateY(-14deg);
   transition: transform var(--dur-slow) var(--ease);
   will-change: transform;
+  overflow: hidden;
+}
+/* faint inset frame - the embossed border of a premium hardcover */
+.book__mock::after {
+  content: '';
+  position: absolute;
+  inset: 14px 14px 14px 22px;
+  border: 1px solid rgba(214, 211, 178, 0.16);
+  border-radius: 3px;
+  pointer-events: none;
 }
 .book__cover:hover .book__mock { transform: rotateY(-6deg); }
 .book__badge {
+  position: relative;
   align-self: flex-start;
   display: inline-flex;
   flex-direction: column;
@@ -128,24 +147,38 @@
 .book__badge span:first-child { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; }
 .book__badge span:last-child { font-family: var(--font-display); font-size: 26px; }
 .book__mock-title {
+  position: relative;
   font-family: var(--font-display);
   font-size: clamp(44px, 6vw, 72px);
-  line-height: 0.92;
-  color: var(--sand);
+  line-height: 0.9;
+  color: var(--cream);
   letter-spacing: var(--ls-display);
 }
 .book__mock-title .cr { color: var(--gold); }
+/* gold foil rule beneath the title - anchors the type, adds the accent */
+.book__mock-title::after {
+  content: '';
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin-top: var(--space-4);
+  background: var(--gold);
+  border-radius: 2px;
+}
 .book__mock-sub {
+  position: relative;
   font-family: var(--font-sans);
   font-weight: var(--fw-light);
   font-size: var(--fs-body-sm);
-  color: var(--text-on-dark-muted);
-  margin-top: var(--space-4);
+  color: rgba(242, 241, 231, 0.80);
+  margin-top: var(--space-5);
+  max-width: 24ch;
 }
 .book__mock-author {
+  position: relative;
   font-family: var(--font-label);
   font-size: var(--fs-caption);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
   color: var(--sand-soft);
   text-transform: uppercase;
   margin-top: var(--space-6);
@@ -254,6 +287,14 @@
   flex: 1;
   min-width: 200px;
 }
+.news__status {
+  margin: var(--space-4) 0 0;
+  font-family: var(--font-label);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-snug);
+}
+.news__status[data-state='ok'] { color: var(--spotify); }
+.news__status[data-state='error'] { color: #FF6B6B; }
 .news__alt {
   display: flex;
   gap: var(--space-5);
@@ -486,6 +527,15 @@ textarea:focus {
 }
 textarea { resize: vertical; min-height: 90px; }
 .booking__submit { width: 100%; justify-content: center; margin-top: var(--space-2); }
+.booking__status {
+  margin: var(--space-4) 0 0;
+  font-family: var(--font-label);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-snug);
+  text-align: center;
+}
+.booking__status[data-state='ok'] { color: #1B8A4B; }
+.booking__status[data-state='error'] { color: #C2410C; }
 
 @media (max-width: 920px) {
   .speaking__grid { grid-template-columns: 1fr; gap: var(--space-12); }
@@ -522,6 +572,31 @@ textarea { resize: vertical; min-height: 90px; }
   gap: var(--space-4);
   justify-content: center;
   flex-wrap: wrap;
+}
+/* The Button primitive sets its own inline colours; on this dark band the
+   default sand/outline treatment read as "disabled". Override (with the
+   needed specificity over inline styles) so the primary is an unmistakable
+   gold pill and the secondaries are crisp cream outlines that fill on hover. */
+.cta-band__row > a { transition: background var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur) var(--ease); }
+.cta-band__row > a:first-child {
+  background: var(--gold) !important;
+  color: var(--forest-900) !important;
+  border: none !important;
+  font-weight: var(--fw-semibold) !important;
+}
+.cta-band__row > a:first-child:hover {
+  background: #FFCC2E !important;
+  transform: translateY(-2px);
+}
+.cta-band__row > a:not(:first-child) {
+  background: transparent !important;
+  border: 1.5px solid var(--sand) !important;
+  color: var(--text-on-dark) !important;
+}
+.cta-band__row > a:not(:first-child):hover {
+  background: var(--sand) !important;
+  color: var(--forest-900) !important;
+  transform: translateY(-2px);
 }
 
 /* ============================================================

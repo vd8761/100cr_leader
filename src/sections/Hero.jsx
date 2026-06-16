@@ -12,7 +12,7 @@ const PLATFORMS = ['spotify', 'youtube', 'google', 'jiosaavn'];
 export function Hero() {
   return (
     <header id="home" className="hero section" data-hero data-chapter="home">
-      {/* Floating host cut-out — sits behind the platform bar (which hides
+      {/* Floating host cut-out - sits behind the platform bar (which hides
           its lower crop) and rises up into the middle of the wordmark. */}
       <div className="hero__portrait-wrap">
         <img
@@ -23,7 +23,7 @@ export function Hero() {
         />
       </div>
 
-      {/* Just his resting hand — same canvas/crop, layered ABOVE the bar so
+      {/* Just his resting hand - same canvas/crop, layered ABOVE the bar so
           it looks like he's resting it on the platform bar. */}
       <div className="hero__portrait-wrap hero__portrait-wrap--hand" aria-hidden="true">
         <img
@@ -61,12 +61,12 @@ export function Hero() {
               fontFamily: 'var(--font-sans)', fontSize: 'var(--fs-h1)', fontWeight: 'var(--fw-regular)',
               color: 'var(--navy)', letterSpacing: 'var(--ls-tight)', lineHeight: 1.02, margin: 0,
             }}>Bharathiraja<br />Thangapplalam</h1>
-            <p style={{ fontFamily: 'var(--font-sans)', fontSize: 'var(--fs-h5)', fontWeight: 'var(--fw-light)', color: 'var(--navy)', margin: '18px 0 0' }}>CEO, Touchmark Descience</p>
+            <p style={{ fontFamily: 'var(--font-sans)', fontSize: 'var(--fs-h5)', fontWeight: 'var(--fw-light)', color: 'var(--navy)', margin: '18px 0 0' }}>CEO, Touchmark Descience · Agile Consultant</p>
           </div>
         </div>
       </div>
 
-      {/* Platform listening rail — eyebrow + a single centred row of brand
+      {/* Platform listening rail - eyebrow + a single centred row of brand
           discs. The bar's height is locked on desktop (the hand rests on it). */}
       <div className="hero__platform-bar">
         <div className="hero__listen">

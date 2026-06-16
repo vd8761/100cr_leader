@@ -20,7 +20,7 @@ const BRAND = {
 
 /* Compact "listen on" badge: a circular brand disc with the platform name
    beneath. Narrow by design, so a row of them stays a single tidy line from
-   a 320px phone up — no folding/stacking. Used in the hero platform rail. */
+   a 320px phone up - no folding/stacking. Used in the hero platform rail. */
 export function PlatformBadge({ platform = 'spotify', href }) {
   return (
     <a

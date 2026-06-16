@@ -5,38 +5,6 @@ const wantsCursor = () =>
   window.matchMedia('(pointer: fine)').matches && window.innerWidth > 980;
 const isDesktop = () => window.innerWidth >= 920;
 
-/* ------------------------------------------------------------------ */
-/* Custom cursor                                                       */
-/* ------------------------------------------------------------------ */
-function initCursor() {
-  const dot = document.querySelector('.cursor-dot');
-  const ring = document.querySelector('.cursor-ring');
-  if (!dot || !ring || !wantsCursor()) return () => {};
-
-  document.documentElement.classList.add('has-cursor');
-  gsap.set([dot, ring], { xPercent: 0, yPercent: 0, opacity: 1 });
-
-  const xDot = gsap.quickTo(dot, 'x', { duration: 0.12, ease: 'power3' });
-  const yDot = gsap.quickTo(dot, 'y', { duration: 0.12, ease: 'power3' });
-  const xRing = gsap.quickTo(ring, 'x', { duration: 0.45, ease: 'power3' });
-  const yRing = gsap.quickTo(ring, 'y', { duration: 0.45, ease: 'power3' });
-
-  const move = (e) => { xDot(e.clientX); yDot(e.clientY); xRing(e.clientX); yRing(e.clientY); };
-  const over = (e) => { if (e.target.closest('[data-cursor="hover"], a, button')) ring.classList.add('is-hovering'); };
-  const out = (e) => { if (e.target.closest('[data-cursor="hover"], a, button')) ring.classList.remove('is-hovering'); };
-
-  window.addEventListener('pointermove', move, { passive: true });
-  document.addEventListener('pointerover', over);
-  document.addEventListener('pointerout', out);
-
-  return () => {
-    window.removeEventListener('pointermove', move);
-    document.removeEventListener('pointerover', over);
-    document.removeEventListener('pointerout', out);
-    document.documentElement.classList.remove('has-cursor');
-  };
-}
-
 function initMagnetic() {
   if (!wantsCursor()) return;
   gsap.utils.toArray('[data-magnetic]').forEach((el) => {
@@ -144,7 +112,7 @@ export function initAnimations({ wrapper, content }) {
       const waveY = wave && gsap.quickTo(wave, 'y', { duration: 0.8, ease: 'power3' });
       const nameX = nameBox && gsap.quickTo(nameBox, 'x', { duration: 1, ease: 'power3' });
       const nameY = nameBox && gsap.quickTo(nameBox, 'y', { duration: 1, ease: 'power3' });
-      /* X-axis only for the portrait — any vertical drift makes the hand
+      /* X-axis only for the portrait - any vertical drift makes the hand
          overlay look like a separate cut sliding against the bar. */
       const portX = portraits.map((el) => gsap.quickTo(el, 'x', { duration: 1.1, ease: 'power3' }));
       const onMove = (e) => {
@@ -291,8 +259,6 @@ export function initAnimations({ wrapper, content }) {
 
     initMagnetic();
   });
-
-  cleanups.push(initCursor());
 
   const refresh = () => ScrollTrigger.refresh();
   window.addEventListener('load', refresh);
