@@ -526,6 +526,7 @@ textarea:focus {
   box-shadow: 0 0 0 3px rgba(251, 188, 4, 0.18);
 }
 textarea { resize: vertical; min-height: 90px; }
+.booking__captcha { margin: var(--space-2) 0 var(--space-4); min-height: 65px; }
 .booking__submit { width: 100%; justify-content: center; margin-top: var(--space-2); }
 .booking__status {
   margin: var(--space-4) 0 0;

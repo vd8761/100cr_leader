@@ -3,13 +3,27 @@
 export const LINKS = {
   linkedinNewsletter:
     'https://www.linkedin.com/newsletters/the-100-crore-leader-7277973005513711616/',
-  spotifyShow: 'https://open.spotify.com/show/69llhW3MIL0jcAhifH8cAE?si=6c7d2e84693e42f1',
+  spotifyShow: 'https://open.spotify.com/show/69llhW3MIL0jcAhifH8cAE?si=5b5e3db4eeea4b81',
+  applePodcasts:
+    'https://podcasts.apple.com/us/podcast/elevate-with-bharathiraja-thangappalam/id1821814628',
+  amazonMusic:
+    'https://music.amazon.in/podcasts/2c7af635-0fe7-4a48-a555-09996fc5d76b/elevate-with-bharathiraja-thangappalam',
   whatsapp: 'https://chat.whatsapp.com/IIsHlWiCOee3eubtKP3U4r',
   youtube: 'https://www.youtube.com/@elevatewithbharathiraja',
   instagram: 'https://www.instagram.com/elevatewithbharathiraja',
   originbi: 'https://originbi.com',
   email: 'mailto:bharathiraja@originbi.com',
 };
+
+/* Where the podcast lives. Order = display order in the hero rail and the
+   episode-card platform row. (Google Podcasts was shut down in 2024; the show
+   is not on JioSaavn, so neither is listed.) */
+export const PODCAST_PLATFORMS = [
+  { id: 'spotify', label: 'Spotify', href: LINKS.spotifyShow },
+  { id: 'youtube', label: 'YouTube', href: LINKS.youtube },
+  { id: 'apple', label: 'Apple Podcasts', href: LINKS.applePodcasts },
+  { id: 'amazon', label: 'Amazon Music', href: LINKS.amazonMusic },
+];
 
 /* Hero / brand ticker phrases. */
 export const TICKER = [
@@ -63,7 +77,7 @@ export const NEWSLETTER_PROMISES = [
 export const INITIATIVES = [
   {
     tag: 'Platform',
-    title: 'OriginBI',
+    title: 'OriginBI Mindworks',
     desc: 'AI-powered role fitment, leadership assessment, and technical screening. Stop hiring on gut. Start hiring on intelligence.',
     cta: 'Book a Demo',
     href: LINKS.originbi,

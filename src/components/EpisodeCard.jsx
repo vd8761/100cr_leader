@@ -2,7 +2,7 @@ import { Badge } from './Badge.jsx';
 import { AudioPlayer } from './AudioPlayer.jsx';
 import { PlatformIcon } from './PlatformIcon.jsx';
 
-const PLATFORMS = ['spotify', 'youtube', 'google', 'jiosaavn'];
+const PLATFORMS = ['spotify', 'youtube', 'apple', 'amazon'];
 
 /* EpisodeCard - the featured-episode row: title + EP badge, a clamped
    teaser with "Read more", the inline AudioPlayer, duration • date,
@@ -43,7 +43,7 @@ export function EpisodeCard({
           color: 'var(--text-on-light-muted)', letterSpacing: 'var(--ls-label)', whiteSpace: 'nowrap',
         }}>{duration} &nbsp;•&nbsp; {date}</span>
         <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
-          {PLATFORMS.map((p) => <PlatformIcon key={p} platform={p} size={34} ring={p === 'google'} />)}
+          {PLATFORMS.map((p) => <PlatformIcon key={p} platform={p} size={34} />)}
         </div>
       </div>
     </article>

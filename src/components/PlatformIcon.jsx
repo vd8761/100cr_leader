@@ -1,20 +1,27 @@
 import { Icon } from './Icon.jsx';
 
+/* Platforms that ship a finished, self-contained app icon (the full coloured
+   badge is baked into the artwork) - rendered as the real image clipped to the
+   circular disc, rather than a hand-drawn glyph on a flat fill. */
+const IMAGE = {
+  jiosaavn: '/assets/icons/jiosaavn.png',
+  apple: '/assets/icons/apple-podcasts.png',
+  amazon: '/assets/icons/amazon-smile.png',
+};
+
 const BRAND = {
   spotify: { bg: 'var(--spotify)', fg: '#fff', glyph: 'spotify' },
   youtube: { bg: 'var(--youtube)', fg: '#fff', glyph: 'youtube' },
-  jiosaavn: { bg: 'var(--jiosaavn)', fg: '#fff', glyph: 'jiosaavn' },
   google: { bg: '#fff', fg: null, glyph: 'google-podcasts' },
 };
 
 /* Circular brand badge for a listening platform. */
 export function PlatformIcon({ platform = 'spotify', size = 48, ring = false, style }) {
-  /* JioSaavn ships a finished circular app icon (teal disc + logo), so we
-     render the real artwork rather than a hand-drawn glyph on a flat fill. */
-  if (platform === 'jiosaavn') {
+  const image = IMAGE[platform];
+  if (image) {
     return (
       <img
-        src="/assets/icons/jiosaavn.png"
+        src={image}
         alt=""
         width={size}
         height={size}

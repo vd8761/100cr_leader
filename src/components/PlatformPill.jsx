@@ -2,14 +2,14 @@ import React from 'react';
 import { PlatformIcon } from './PlatformIcon.jsx';
 
 const LABELS = {
-  spotify: 'Spotify', youtube: 'Youtube', google: 'Google Podcast', jiosaavn: 'Jio Saavn',
+  spotify: 'Spotify', youtube: 'Youtube', apple: 'Apple Podcasts', amazon: 'Amazon Music',
 };
 
 const LINKS = {
   spotify: 'https://open.spotify.com',
   youtube: 'https://youtube.com',
-  google: 'https://podcasts.google.com',
-  jiosaavn: 'https://www.jiosaavn.com',
+  apple: 'https://podcasts.apple.com',
+  amazon: 'https://music.amazon.com',
 };
 
 /* "Listen now" pill: brand badge + platform name + underlined action.

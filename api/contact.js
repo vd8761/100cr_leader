@@ -9,6 +9,7 @@
  * Optional env: RESEND_FROM, ADMIN_EMAIL, REPLY_TO.
  */
 import { sendEmail, bookingAdminEmail, bookingUserEmail, ADMIN_EMAIL, REPLY_TO, isEmail } from '../lib/email.js';
+import { verifyTurnstile, clientIp } from '../lib/turnstile.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -30,6 +31,10 @@ export default async function handler(req, res) {
 
   if (!data.name) return res.status(400).json({ error: 'Please enter your name.' });
   if (!isEmail(data.email)) return res.status(400).json({ error: 'Please enter a valid email.' });
+
+  // Bot check (Cloudflare Turnstile). No-op until TURNSTILE_SECRET_KEY is set.
+  const human = await verifyTurnstile(body.turnstileToken, clientIp(req));
+  if (!human) return res.status(400).json({ error: 'Verification failed. Please try again.' });
 
   try {
     const admin = bookingAdminEmail(data);

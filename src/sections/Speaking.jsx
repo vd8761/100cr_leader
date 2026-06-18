@@ -4,6 +4,30 @@ import { SPEAKING_TOPICS, SPEAKING_AUDIENCES, SPEAKING_TYPES, BOOKING_PREFILL_EV
 
 const ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT || '/api/contact';
 
+/* Cloudflare Turnstile - guards this booking form (the newsletter has none).
+   When the site key isn't configured the widget is skipped and the form works
+   as before, so local `vite dev` without keys is unaffected. */
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
+const TURNSTILE_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+
+let turnstileLoader = null;
+function loadTurnstile() {
+  if (typeof window === 'undefined') return Promise.resolve(null);
+  if (window.turnstile) return Promise.resolve(window.turnstile);
+  if (!turnstileLoader) {
+    turnstileLoader = new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = TURNSTILE_SRC;
+      s.async = true;
+      s.defer = true;
+      s.onload = () => resolve(window.turnstile);
+      s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
+  return turnstileLoader;
+}
+
 /* Speaking & workshops + booking form. */
 export function Speaking() {
   const [form, setForm] = React.useState({
@@ -11,8 +35,37 @@ export function Speaking() {
   });
   const [status, setStatus] = React.useState('idle'); // idle | loading | ok | error
   const [message, setMessage] = React.useState('');
+  const [token, setToken] = React.useState('');
+  const captchaRef = React.useRef(null);
+  const widgetId = React.useRef(null);
 
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
+
+  /* Render the Turnstile widget once the script is ready (explicit mode). */
+  React.useEffect(() => {
+    if (!TURNSTILE_SITE_KEY) return;
+    let cancelled = false;
+    loadTurnstile()
+      .then((ts) => {
+        if (cancelled || !ts || !captchaRef.current || widgetId.current !== null) return;
+        widgetId.current = ts.render(captchaRef.current, {
+          sitekey: TURNSTILE_SITE_KEY,
+          theme: 'light',
+          callback: (t) => setToken(t),
+          'expired-callback': () => setToken(''),
+          'error-callback': () => setToken(''),
+        });
+      })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, []);
+
+  const resetCaptcha = () => {
+    setToken('');
+    if (window.turnstile && widgetId.current !== null) {
+      try { window.turnstile.reset(widgetId.current); } catch { /* noop */ }
+    }
+  };
 
   /* Let other sections (e.g. "Pre-order the Book") preset the "What for?"
      dropdown when they route the visitor here. */
@@ -33,21 +86,28 @@ export function Speaking() {
       setMessage('Please add your name and email.');
       return;
     }
+    if (TURNSTILE_SITE_KEY && !token) {
+      setStatus('error');
+      setMessage('Please complete the verification below.');
+      return;
+    }
     setStatus('loading');
     setMessage('');
     try {
       const res = await fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, turnstileToken: token }),
       });
       if (!res.ok) throw new Error(await res.text().catch(() => 'failed'));
       setStatus('ok');
       setMessage("Request sent. Check your inbox for a copy - we'll reply within 48 hours.");
       setForm({ name: '', organisation: '', email: '', topic: SPEAKING_TYPES[0], message: '' });
+      resetCaptcha();
     } catch (err) {
       setStatus('error');
       setMessage('Something went wrong. Please try again, or email info@touchmarkdes.com.');
+      resetCaptcha(); // Turnstile tokens are single-use - get a fresh one for the retry.
     }
   };
 
@@ -102,6 +162,7 @@ export function Speaking() {
               <label htmlFor="bk-msg">Tell me more</label>
               <textarea id="bk-msg" placeholder="Event details, audience, date..." value={form.message} onChange={set('message')} />
             </div>
+            {TURNSTILE_SITE_KEY && <div className="booking__captcha" ref={captchaRef} />}
             <Button variant="solid" type="submit" icon="arrow-right" className="booking__submit">
               {status === 'loading' ? 'Sending…' : 'Send Request'}
             </Button>

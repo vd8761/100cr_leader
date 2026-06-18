@@ -2,9 +2,7 @@ import { DisplayHeading } from '../components/DisplayHeading.jsx';
 import { Marquee } from '../components/Marquee.jsx';
 import { Waveform } from '../components/Waveform.jsx';
 import { PlatformBadge } from '../components/PlatformBadge.jsx';
-import { TICKER } from '../data/site.js';
-
-const PLATFORMS = ['spotify', 'youtube', 'google', 'jiosaavn'];
+import { TICKER, PODCAST_PLATFORMS } from '../data/site.js';
 
 /* Hero - forest top with the giant Bebas wordmark, the scrolling host
    marquee, the faint waveform backdrop, the navy "with … name" block,
@@ -76,8 +74,8 @@ export function Hero() {
             <span className="hero__listen-rule" aria-hidden="true" />
           </p>
           <div className="hero__listen-row" data-hero-platforms>
-            {PLATFORMS.map((p) => (
-              <PlatformBadge key={p} platform={p} />
+            {PODCAST_PLATFORMS.map((p) => (
+              <PlatformBadge key={p.id} platform={p.id} href={p.href} />
             ))}
           </div>
         </div>

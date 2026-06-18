@@ -1,21 +1,21 @@
 import { PlatformIcon } from './PlatformIcon.jsx';
 
 const LABELS = {
-  spotify: 'Spotify', youtube: 'YouTube', google: 'Google', jiosaavn: 'JioSaavn',
+  spotify: 'Spotify', youtube: 'YouTube', apple: 'Apple Podcasts', amazon: 'Amazon Music',
 };
 
 const LINKS = {
   spotify: 'https://open.spotify.com',
   youtube: 'https://youtube.com',
-  google: 'https://podcasts.google.com',
-  jiosaavn: 'https://www.jiosaavn.com',
+  apple: 'https://podcasts.apple.com',
+  amazon: 'https://music.amazon.com',
 };
 
 /* Brand colour that lights up the disc on hover (each platform glows in
    its own colour). Falls back to sand for anything unmapped. */
 const BRAND = {
   spotify: 'var(--spotify)', youtube: 'var(--youtube)',
-  google: 'var(--google-blue)', jiosaavn: 'var(--jiosaavn)',
+  apple: 'var(--apple)', amazon: 'var(--amazon)',
 };
 
 /* Compact "listen on" badge: a circular brand disc with the platform name

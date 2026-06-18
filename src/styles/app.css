@@ -404,6 +404,22 @@
   .hero__name-inner {
     justify-content: flex-start; /* no portrait → name leads from the left */
   }
+  /* Equalise the badge columns so the discs keep an even rhythm regardless of
+     label length. Otherwise a wide caption like "Apple Podcasts" widens its
+     column and shoves the discs apart unevenly. Labels wrap under the disc;
+     align-items:flex-start keeps the discs themselves on one straight line. */
+  .hero__listen-row {
+    width: 100%;
+    gap: clamp(var(--space-2), 3vw, var(--space-5));
+  }
+  .hero__listen-row .plat-badge {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 96px;
+  }
+  .hero__listen-row .plat-badge__name {
+    white-space: normal;
+  }
 }
 
 @media (max-width: 680px) {
